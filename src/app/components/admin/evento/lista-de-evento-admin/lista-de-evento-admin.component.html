@@ -22,7 +22,7 @@
               Categoria: {{ evento.categories }}
             </small>
           </p>
-          <button type="button" class="btn btn-secondary bg-warning" mdbRipple >Editar</button>
+          <button type="button" class="btn btn-secondary bg-warning" mdbRipple (click)="openModal()" >Editar</button>
           <button type="button" class="btn btn-primary bg-danger" mdbRipple (click)="deletar()">Deletar</button>
         </div>
       </div>
