@@ -1,0 +1,31 @@
+<app-novo-evento></app-novo-evento>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let evento of lista">
+      <div class="card mb-3">
+        <img
+          src=""
+          class="card-img-top"
+          alt="Imagem do evento"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ evento.nome }}</h5>
+          <p class="card-text">
+            Data: {{ evento.data | date }}<br />
+            Local: {{ evento.endereco.cidade }}, {{ evento.endereco.rua }},
+            {{ evento.endereco.numero }}<br />
+            Descrição: {{ evento.descricao }}
+          </p>
+          <p class="card-text">
+            <small class="text-muted">
+              Categoria: {{ evento.categories }}
+            </small>
+          </p>
+          <button type="button" class="btn btn-secondary bg-warning" mdbRipple >Editar</button>
+          <button type="button" class="btn btn-primary bg-danger" mdbRipple (click)="deletar()">Deletar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
