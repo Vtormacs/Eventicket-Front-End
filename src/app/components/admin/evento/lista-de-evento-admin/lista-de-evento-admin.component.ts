@@ -2,21 +2,26 @@ import { Component } from '@angular/core';
 import { Categoria } from '../../../../models/categoria';
 import { Endereco } from '../../../../models/endereco';
 import { Evento } from '../../../../models/evento';
-import { NovoEventoComponent } from "../../botoes/novo-evento/novo-evento.component";
+import { NovoEventoComponent } from '../../botoes/novo-evento/novo-evento.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { EditarEventoModalComponent } from '../../modal/editar-evento-modal/editar-evento-modal.component';
 
 @Component({
   selector: 'app-lista-de-evento-admin',
   standalone: true,
   imports: [CommonModule, RouterLink, NovoEventoComponent],
+  providers: [MdbModalService],
   templateUrl: './lista-de-evento-admin.component.html',
-  styleUrl: './lista-de-evento-admin.component.scss',
+  styleUrls: ['./lista-de-evento-admin.component.scss'],
 })
 export class ListaDeEventoAdminComponent {
+  modalRef: MdbModalRef<EditarEventoModalComponent> | null = null;
   lista: Evento[] = [];
 
-  constructor() {
+  constructor(private modalService: MdbModalService) {
+    // Inicialização dos dados
     const endereco1 = new Endereco(1, 'São Paulo', 'São Paulo', 'Rua A', '100');
     const endereco2 = new Endereco(
       2,
@@ -32,11 +37,8 @@ export class ListaDeEventoAdminComponent {
       'Rua C',
       '300'
     );
-
     const endereco4 = new Endereco(4, 'Curitiba', 'Paraná', 'Avenida D', '400');
-
     const endereco5 = new Endereco(5, 'Salvador', 'Bahia', 'Rua E', '500');
-
     const endereco6 = new Endereco(6, 'Fortaleza', 'Ceará', 'Praça F', '600');
 
     const categoriaMusica = new Categoria(1, 'Música');
@@ -77,7 +79,6 @@ export class ListaDeEventoAdminComponent {
         endereco3,
         new Set([categoriaTeatro])
       ),
-      // Novos eventos
       new Evento(
         4,
         'Festival de Música',
@@ -111,5 +112,13 @@ export class ListaDeEventoAdminComponent {
     );
   }
 
-  deletar() {}
+  openModal() {
+    this.modalRef = this.modalService.open(EditarEventoModalComponent, {
+      modalClass: 'modal-dialog-centered',
+    });
+  }
+
+  deletar() {
+    // Lógica para deletar um evento
+  }
 }
